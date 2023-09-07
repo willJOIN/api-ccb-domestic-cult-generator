@@ -12,7 +12,11 @@ app.post('/api-ccb/word', (req, res) => {
     axios.get(url)
         .then(response => {
             // todo cult simulator, 3 hymns + 1 word + 1 prayer + 1 final hymn
-            const hymn = randomIntFromInterval(1, 480)
+            const hymn1 = getHymn(1, 480)
+            const hymn2 = getHymn(1, 480)
+            const hymn3 = getHymn(1, 480)
+
+            const word = getWord(response.data)
 
             res.status(200).json(response.data);
         })
@@ -23,11 +27,15 @@ app.post('/api-ccb/word', (req, res) => {
         });
 });
 
-function randomIntFromInterval(min, max) { // min and max included 
+function getHymn(min, max) { 
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-const port = 3000;
+function getWord(resp) {
+    
+}
+
+const port = 3333;
 
 app.listen(port, () => {
     console.log("Server is active on port", port);
