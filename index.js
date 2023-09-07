@@ -12,6 +12,8 @@ app.post('/api-ccb/word', (req, res) => {
     axios.get(url)
         .then(response => {
             // todo cult simulator, 3 hymns + 1 word + 1 prayer + 1 final hymn
+            const hymn = randomIntFromInterval(1, 480)
+
             res.status(200).json(response.data);
         })
         .catch(error => {
@@ -20,6 +22,10 @@ app.post('/api-ccb/word', (req, res) => {
             res.status(500).json({ error: 'Internal server error' });
         });
 });
+
+function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
 
 const port = 3000;
 
