@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API CCB Domestic Cult Generator</title>
+</head>
+<body>
+    <h1>Generate domestic cult</h1>
+    <button id="requestButton">Generate domestic cult</button>
+    <div id="response"></div>
+
+    <script>
+        const requestButton = document.getElementById('requestButton');
+        const responseDiv = document.getElementById('response');
+
+        requestButton.addEventListener('click', () => {
+            fetch('http://localhost:5500/api-ccb/word', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    book: 'ct', // TODO random all abbrev
+                    chapter: 1 // TODO random 1 to 100 (?)
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                responseDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                responseDiv.innerHTML = 'Erro ao fazer a requisição para o back-end.';
+            });
+        });
+    </script>
+</body>
+</html>
